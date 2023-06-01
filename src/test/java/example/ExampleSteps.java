@@ -5,11 +5,8 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebElement;
 
 public class ExampleSteps {
 
@@ -101,5 +98,26 @@ public class ExampleSteps {
         WebElement SignUpBtn = driver.findElement(By.cssSelector(".fHmvvV"));
         SignUpBtn.isDisplayed();
         SignUpBtn.click();
+    }
+
+    @When("I input my address")
+    public void iInputMyAddress() {
+        WebElement InputField = driver.findElement(By.id("front-page-input"));
+        InputField.click();
+        InputField.sendKeys("Fabijoniskiu g. 3b");
+    }
+
+    @And("click 'Enter' button")
+    public void clickEnterButton() throws InterruptedException {
+        WebElement InputField = driver.findElement(By.id("front-page-input"));
+        InputField.sendKeys(Keys.ENTER);
+        Thread.sleep(1000);
+    }
+
+    @Then("I expect to see delivery page")
+    public void iExpectToSeeDeliveryPage() throws InterruptedException {
+        String url = driver.getCurrentUrl();
+        System.out.println(url);
+        Thread.sleep(1000);
     }
 }

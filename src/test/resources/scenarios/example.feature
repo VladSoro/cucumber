@@ -25,7 +25,11 @@ Feature: Wolt Home Page
     Then I see 'Create an account or log in' pop-up
 
 
-  Scenario: checking registration and authorization buttons
+  Scenario: checking field 'choose a delivery` address'
+    Given I open wolt homepage and accept cookie
+    When I input my address
+    And click 'Enter' button
+    Then I expect to see delivery page
 
 
 
