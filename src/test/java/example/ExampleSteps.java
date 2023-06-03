@@ -65,7 +65,7 @@ public class ExampleSteps {
         Thread.sleep(1000);
     }
 
-    @Then("I see main page")
+    @Then("I expect to see main page")
     public void iSeeMainPage() throws InterruptedException {
         String url = driver.getCurrentUrl();
         System.out.println(url);
@@ -111,7 +111,6 @@ public class ExampleSteps {
     public void clickEnterButton() throws InterruptedException {
         WebElement InputField = driver.findElement(By.id("front-page-input"));
         InputField.sendKeys(Keys.ENTER);
-        Thread.sleep(1000);
     }
 
     @Then("I expect to see delivery page")
@@ -119,5 +118,57 @@ public class ExampleSteps {
         String url = driver.getCurrentUrl();
         System.out.println(url);
         Thread.sleep(1000);
+    }
+
+    @When("I input 'Plovas' in search field")
+    public void iInputPlovasInSearchField() throws InterruptedException {
+        WebElement SearchField = driver.findElement(By.cssSelector(".sc-87536c87-2"));
+        SearchField.click();
+        SearchField.sendKeys("plovas");
+        SearchField.sendKeys(Keys.ENTER);
+        Thread.sleep(1000);
+
+    }
+
+    @And("I select first restorant")
+    public void iSelectFirstRestoran() {
+        WebElement FirstRestoran = driver.findElement(By.cssSelector(".sc-c6b178e0-0:nth-child(1) .sc-36a7e468-1"));
+        FirstRestoran.isDisplayed();
+        FirstRestoran.click();
+    }
+
+    @Then("I expect to see restaurant menu")
+    public void iExpectToSeeRestaurantMenu() throws InterruptedException {
+        String url = driver.getCurrentUrl();
+        System.out.println(url);
+        Thread.sleep(1000);
+    }
+
+
+    @When("I click on the dish")
+    public void iClickOnTheDish() {
+        WebElement PlovDish = driver.findElement(By.cssSelector(".sc-843d6ebd-1:nth-child(5) .sc-b4dd416a-0:nth-child(2) .sc-979c4fba-1"));
+        PlovDish.isDisplayed();
+        PlovDish.click();
+    }
+
+    @Then("I expect to see order pop-op")
+    public void iExpectToSeeOrderPopOp() {
+        WebElement AddOrderBtn = driver.findElement(By.cssSelector(".sc-843d6ebd-1:nth-child(1) .sc-b4dd416a-0:nth-child(1) .sc-979c4fba-0"));
+        AddOrderBtn.isDisplayed();
+        AddOrderBtn.isEnabled();
+    }
+
+    @When("I click 'Add order' button")
+    public void iClickAddOrderButton() throws InterruptedException {
+        WebElement AddOrderBtn = driver.findElement(By.cssSelector(".sc-be417c56-5 > span:nth-child(1)"));
+        AddOrderBtn.click();
+        Thread.sleep(1000);
+    }
+
+    @Then("I expect to see shopping cart")
+    public void iExpectToSeeShoppingCart() {
+        WebElement ShopCard = driver.findElement(By.cssSelector(".gDxbyT .sc-5f688af-7"));
+        ShopCard.click();
     }
 }

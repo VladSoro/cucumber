@@ -12,7 +12,7 @@ Feature: Wolt Home Page
   Scenario: Open main page
      Given I open wolt homepage and accept cookie
      When I click wolt banner
-     Then I see main page
+     Then I expect to see main page
 
 
   Scenario: checking registration and authorization buttons
