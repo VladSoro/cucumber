@@ -8,6 +8,8 @@ import io.cucumber.java.en.When;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import static org.testng.AssertJUnit.assertTrue;
+
 public class ExampleSteps {
 
     WebDriver driver = new ChromeDriver();
@@ -117,6 +119,14 @@ public class ExampleSteps {
     public void iExpectToSeeDeliveryPage() throws InterruptedException {
         String url = driver.getCurrentUrl();
         System.out.println(url);
+        WebElement deliveryBtn = driver.findElement(By.cssSelector(".HpYmW > .sc-b0e58def-1"));
+        String ariaSelectedValue = deliveryBtn.getAttribute("aria-selected");
+        if ("true".equals(ariaSelectedValue)) {
+            System.out.println("aria-selected is true");
+        } else {
+            System.out.println("aria-selected is false");
+        }
+
         Thread.sleep(1000);
     }
 
@@ -170,5 +180,11 @@ public class ExampleSteps {
     public void iExpectToSeeShoppingCart() {
         WebElement ShopCard = driver.findElement(By.cssSelector(".gDxbyT .sc-5f688af-7"));
         ShopCard.click();
+    }
+
+    @When("I click 'Discovery' button")
+    public void iClickDiscoveryButton() {
+       WebElement deliveryBtn = driver.findElement(By.cssSelector(".HpYmW > .sc-b0e58def-1"));
+        deliveryBtn.click();
     }
 }
