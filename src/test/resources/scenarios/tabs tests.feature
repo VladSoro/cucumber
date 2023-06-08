@@ -4,7 +4,16 @@ Feature: Main menu
     And I click wolt banner
 
 
-  Scenario: Discovery button
+Scenario: Discovery page
     When I click 'Discovery' button
     Then I expect to see delivery page
+
+
+Scenario: Restaurants page
+    When I click 'Restaurants' button
+    Then I expect to see Restaurants page
+
+Scenario: Stores page
+    When I click 'Stores' button
+    Then I expect to see Stores page
 
