@@ -172,13 +172,13 @@ public class ExampleSteps {
 
     @When("I click 'Discovery' button")
     public void iClickDiscoveryButton() {
-        WebElement deliveryBtn = driver.findElement(By.cssSelector(".HpYmW > .sc-b0e58def-1"));
+        WebElement deliveryBtn = driver.findElement(By.xpath("//main[@id=\'mainContent\']/div[2]/div/div/div[2]/div/div/div/a/span"));
         deliveryBtn.click();
     }
 
     @When("I click 'Restaurants' button")
     public void iClickRestoranButton() {
-        WebElement RestoranButton = driver.findElement(By.cssSelector("div:nth-child(2) > .sc-b0e58def-0 > .sc-b0e58def-1"));
+        WebElement RestoranButton = driver.findElement(By.xpath("//main[@id=\'mainContent\']/div[2]/div/div/div[2]/div/div/div[2]/a/span"));
         RestoranButton.click();
     }
 
@@ -194,13 +194,13 @@ public class ExampleSteps {
             System.out.println("aria-selected is false");
         }
 
-        Thread.sleep(1000);
+        Thread.sleep(3000);
 
     }
 
     @When("I click 'Stores' button")
     public void iClickStoresButton() {
-        WebElement StoresButton = driver.findElement(By.cssSelector(".bltnIr > .sc-5c6f6a72-1"));
+        WebElement StoresButton = driver.findElement(By.xpath("//main[@id=\'mainContent\']/div[2]/div/div/div[2]/div/div/div[3]/a/span"));
         StoresButton.click();
         {
             WebElement StoresBtn = driver.findElement(By.cssSelector("div:nth-child(3) .sc-5c6f6a72-1"));
@@ -214,7 +214,7 @@ public class ExampleSteps {
     public void iExpectToSeeStoresPage() throws InterruptedException {
         String url = driver.getCurrentUrl();
         System.out.println(url);
-        WebElement Restaurants = driver.findElement(By.cssSelector("div:nth-child(3) .sc-5c6f6a72-1"));
+        WebElement Restaurants = driver.findElement(By.xpath("//main[@id=\'mainContent\']/div[2]/div/div/div[2]/div/div/div[3]/a/span"));
         String ariaSelectedValue = Restaurants.getAttribute("aria-selected");
         if ("true".equals(ariaSelectedValue)) {
             System.out.println("aria-selected is true");
@@ -224,5 +224,45 @@ public class ExampleSteps {
 
         Thread.sleep(1000);
 
+    }
+
+    @When("I click 'Sorted by Recommended' button")
+    public void iClickSortedByRecommendedButton() throws InterruptedException {
+        WebElement RecommendedButton = driver.findElement(By.cssSelector(".sc-630fc281-2"));
+        RecommendedButton.isDisplayed();
+        RecommendedButton.click();
+    }
+
+    @And("I click 'See all filters' button")
+    public void iClickSeeAllFiltersButton() throws InterruptedException {
+        WebElement SeeAllBtn = driver.findElement(By.cssSelector(".sc-31447687-0"));
+        SeeAllBtn.isDisplayed();
+        SeeAllBtn.click();
+        Thread.sleep(1000);
+    }
+
+    @Then("I expect to see 'Filter categories' pop-up")
+    public void iExpectToSeeFilterCategoriesPopUp() {
+        WebElement PizzaBtn = driver.findElement(By.cssSelector(".sc-7ef78d82-0:nth-child(44) > .sc-7ef78d82-1"));
+        PizzaBtn.isDisplayed();
+    }
+
+    @When("I click 'Pizza' button")
+    public void iClickPizzaButton() {
+        WebElement PizzaBtn = driver.findElement(By.cssSelector(".sc-7ef78d82-0:nth-child(44) > .sc-7ef78d82-1"));
+        PizzaBtn.click();
+    }
+
+    @And("I click 'Apply' button")
+    public void iClickApplyButton() {
+        WebElement ApplyBtn = driver.findElement(By.xpath("//div[2]/button/div[3]"));
+        ApplyBtn.click();
+    }
+
+    @Then("I expect see Restaurants near me with pizza")
+    public void iExpectSeeRestaurantsNearMeWithPizza() throws InterruptedException {
+        String url = driver.getCurrentUrl();
+        System.out.println(url);
+        Thread.sleep(3000);
     }
 }
