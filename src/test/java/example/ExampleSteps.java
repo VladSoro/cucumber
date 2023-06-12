@@ -8,6 +8,9 @@ import io.cucumber.java.en.When;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.time.Instant;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfWindowsToBe;
 import static org.testng.AssertJUnit.assertTrue;
 
 public class ExampleSteps {
@@ -81,7 +84,7 @@ public class ExampleSteps {
         LoginBtn.click();
     }
 
-    @Then("I see 'Create an account or log in' pop-up")
+    @Then("I expect to see 'Create an account or log in' pop-up")
     public void iSeePopUp() throws InterruptedException {
         Thread.sleep(1000);
         WebElement LoginPopup = driver.findElement(By.cssSelector(".cb_IconButton_bg_b1nm3q3d"));
@@ -264,5 +267,38 @@ public class ExampleSteps {
         String url = driver.getCurrentUrl();
         System.out.println(url);
         Thread.sleep(3000);
+    }
+
+    @When("I click 'Continue with Facebook' button")
+    public void iClickContinueWithGoogleButton() throws InterruptedException {
+        WebElement GoogleBtn = driver.findElement(By.cssSelector(".caePKl .sc-752da1aa-1"));
+        GoogleBtn.isDisplayed();
+        Thread.sleep(3000);
+    }
+
+    @Then("switch window to facebook log in")
+    public void switchWindowToFacebookLogIn() throws InterruptedException {
+        String originalWindow = driver.getWindowHandle();
+        assert driver.getWindowHandles().size() == 1;
+        WebElement GoogleBtn = driver.findElement(By.cssSelector(".caePKl .sc-752da1aa-1"));
+        GoogleBtn.click();
+
+
+        for (String windowHandle : driver.getWindowHandles()) {
+            if(!originalWindow.contentEquals(windowHandle)) {
+                driver.switchTo().window(windowHandle);
+                break;
+            }
+        }
+
+        Thread.sleep(4000);
+    }
+
+    @When("I input my name and password")
+    public void iInputMyNameAndPassword() {
+        String url = driver.getCurrentUrl();
+        System.out.println(url);
+        WebElement nameBtn = driver.findElement(By.id("u_0_h_pk"));
+        nameBtn.click();
     }
 }

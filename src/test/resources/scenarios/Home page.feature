@@ -7,23 +7,19 @@ Feature: Wolt Home Page
     Then I click 'Accept' button
     And I see Home page
 
-
-
   Scenario: Open main page
      Given I open wolt homepage and accept cookie
      When I click wolt banner
      Then I expect to see main page
 
-
   Scenario: checking registration and authorization buttons
     Given I open wolt homepage and accept cookie
     When I click Log in button
-    Then I see 'Create an account or log in' pop-up
+    Then I expect to see 'Create an account or log in' pop-up
     When I close pop-up
     And I see Home page
     When I click 'Sign up' button
-    Then I see 'Create an account or log in' pop-up
-
+    Then I expect to see 'Create an account or log in' pop-up
 
   Scenario: checking field 'choose a delivery` address'
     Given I open wolt homepage and accept cookie
