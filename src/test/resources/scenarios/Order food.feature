@@ -1,12 +1,12 @@
 Feature: Order
   Background:
     Given I open wolt homepage and accept cookie
+    When I click wolt banner
+    Then I expect to see main page
 
 
   Scenario: Order new food
-    When I click wolt banner
-    Then I expect to see main page
-    When I input 'Plovas' in search field
+    When I input 'Ugruzina by Azerai' in search field
     And I select first restorant
     Then I expect to see restaurant menu
     When I click on the dish
@@ -16,8 +16,6 @@ Feature: Order
 
 
   Scenario: Ordering a dish by type of cuisine
-    When I click wolt banner
-    Then I expect to see main page
     When I click 'Restaurants' button
     Then I expect to see Restaurants page
     When I click 'Sorted by Recommended' button
@@ -28,4 +26,11 @@ Feature: Order
     Then I expect see Restaurants near me with pizza
 
 
-  Scenario: Ordering a dish by type of cuisine
+  Scenario: Ordering a dish by type of stores
+      When I click 'Stores' button
+      Then I expect to see Stores page
+      When I click 'Sorted by Recommended' button
+      Then I expect to see 'Filter' pop-up
+      When I select 'Health & beauty'
+      And I select 'Apply' button
+      Then I expect see Stores near me pages

@@ -121,11 +121,11 @@ public class ExampleSteps {
         Thread.sleep(1000);
     }
 
-    @When("I input 'Plovas' in search field")
+    @When("I input 'Ugruzina by Azerai' in search field")
     public void iInputPlovasInSearchField() throws InterruptedException {
         WebElement SearchField = driver.findElement(By.cssSelector(".sc-87536c87-2"));
         SearchField.click();
-        SearchField.sendKeys("plovas");
+        SearchField.sendKeys("Ugruzina by Azerai");
         SearchField.sendKeys(Keys.ENTER);
         Thread.sleep(1000);
 
@@ -147,29 +147,30 @@ public class ExampleSteps {
 
 
     @When("I click on the dish")
-    public void iClickOnTheDish() {
-        WebElement PlovDish = driver.findElement(By.cssSelector(".sc-843d6ebd-1:nth-child(5) .sc-b4dd416a-0:nth-child(2) .sc-979c4fba-1"));
+    public void iClickOnTheDish() throws InterruptedException {
+        WebElement PlovDish = driver.findElement(By.xpath("//h3[contains(.,\'Kharcho\')]"));
         PlovDish.isDisplayed();
         PlovDish.click();
+        Thread.sleep(2000);
     }
 
     @Then("I expect to see order pop-op")
     public void iExpectToSeeOrderPopOp() {
-        WebElement AddOrderBtn = driver.findElement(By.cssSelector(".sc-843d6ebd-1:nth-child(1) .sc-b4dd416a-0:nth-child(1) .sc-979c4fba-0"));
+        WebElement AddOrderBtn = driver.findElement(By.cssSelector(".sc-80c6cc7-1:nth-child(2) .sc-b4dd416a-1"));
         AddOrderBtn.isDisplayed();
         AddOrderBtn.isEnabled();
     }
 
     @When("I click 'Add order' button")
     public void iClickAddOrderButton() throws InterruptedException {
-        WebElement AddOrderBtn = driver.findElement(By.cssSelector(".sc-be417c56-5 > span:nth-child(1)"));
+        WebElement AddOrderBtn = driver.findElement(By.cssSelector(".sc-be417c56-5"));
         AddOrderBtn.click();
         Thread.sleep(1000);
     }
 
     @Then("I expect to see shopping cart")
     public void iExpectToSeeShoppingCart() {
-        WebElement ShopCard = driver.findElement(By.cssSelector(".gDxbyT .sc-5f688af-7"));
+        WebElement ShopCard = driver.findElement(By.cssSelector(".hfpQe .sc-5f688af-7"));
         ShopCard.click();
     }
 
@@ -298,7 +299,33 @@ public class ExampleSteps {
     public void iInputMyNameAndPassword() {
         String url = driver.getCurrentUrl();
         System.out.println(url);
-        WebElement nameBtn = driver.findElement(By.id("u_0_h_pk"));
+        WebElement nameBtn = driver.findElement(By.cssSelector(".caePKl .sc-752da1aa-1"));
         nameBtn.click();
+    }
+
+    @Then("I expect to see 'Filter' pop-up")
+    public void iExpectToSeeFilterPopUp() {
+        WebElement filterPopUp = driver.findElement(By.cssSelector(".sc-7ef78d82-0:nth-child(5) > .bRUnmo"));
+        filterPopUp.isDisplayed();
+    }
+
+
+    @When("I select 'Health & beauty'")
+    public void iSelectHealthBeauty() throws InterruptedException {
+        WebElement filterPopUp = driver.findElement(By.cssSelector(".sc-7ef78d82-0:nth-child(5) > .bRUnmo"));
+        filterPopUp.click();
+        Thread.sleep(2000);
+    }
+
+    @And("I select 'Apply' button")
+    public void iSelectApplyButton() {
+        WebElement applyBtn = driver.findElement(By.cssSelector(".sc-21fc7435-3"));
+        applyBtn.click();
+    }
+
+    @Then("I expect see Stores near me pages")
+    public void iExpectSeeStoresNearMePages() {
+        String url = driver.getCurrentUrl();
+        System.out.println(url);
     }
 }
