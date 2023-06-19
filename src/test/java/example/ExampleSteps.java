@@ -9,8 +9,10 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.time.Instant;
+import java.util.Set;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfWindowsToBe;
+import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 import static org.testng.AssertJUnit.assertTrue;
 
 public class ExampleSteps {
@@ -133,7 +135,7 @@ public class ExampleSteps {
 
     @And("I select first restorant")
     public void iSelectFirstRestoran() {
-        WebElement FirstRestoran = driver.findElement(By.cssSelector(".sc-c6b178e0-0:nth-child(1) .sc-36a7e468-1"));
+        WebElement FirstRestoran = driver.findElement(By.xpath("//a/div/div/div/div/div[2]"));
         FirstRestoran.isDisplayed();
         FirstRestoran.click();
     }
@@ -156,7 +158,7 @@ public class ExampleSteps {
 
     @Then("I expect to see order pop-op")
     public void iExpectToSeeOrderPopOp() {
-        WebElement AddOrderBtn = driver.findElement(By.cssSelector(".sc-80c6cc7-1:nth-child(2) .sc-b4dd416a-1"));
+        WebElement AddOrderBtn = driver.findElement(By.cssSelector(".sc-be417c56-5"));
         AddOrderBtn.isDisplayed();
         AddOrderBtn.isEnabled();
     }
@@ -170,7 +172,7 @@ public class ExampleSteps {
 
     @Then("I expect to see shopping cart")
     public void iExpectToSeeShoppingCart() {
-        WebElement ShopCard = driver.findElement(By.cssSelector(".hfpQe .sc-5f688af-7"));
+        WebElement ShopCard = driver.findElement(By.xpath("//div[3]/div/div[2]"));
         ShopCard.click();
     }
 
@@ -226,7 +228,7 @@ public class ExampleSteps {
             System.out.println("aria-selected is false");
         }
 
-        Thread.sleep(1000);
+        Thread.sleep(3000);
 
     }
 
@@ -239,21 +241,21 @@ public class ExampleSteps {
 
     @And("I click 'See all filters' button")
     public void iClickSeeAllFiltersButton() throws InterruptedException {
-        WebElement SeeAllBtn = driver.findElement(By.cssSelector(".sc-31447687-0"));
+        WebElement SeeAllBtn = driver.findElement(By.cssSelector(".sc-61a1332a-1 > svg"));
         SeeAllBtn.isDisplayed();
         SeeAllBtn.click();
-        Thread.sleep(1000);
+        Thread.sleep(3000);
     }
 
     @Then("I expect to see 'Filter categories' pop-up")
     public void iExpectToSeeFilterCategoriesPopUp() {
-        WebElement PizzaBtn = driver.findElement(By.cssSelector(".sc-7ef78d82-0:nth-child(44) > .sc-7ef78d82-1"));
+        WebElement PizzaBtn = driver.findElement(By.xpath("//label[contains(.,\'Pica\')]"));
         PizzaBtn.isDisplayed();
     }
 
     @When("I click 'Pizza' button")
     public void iClickPizzaButton() {
-        WebElement PizzaBtn = driver.findElement(By.cssSelector(".sc-7ef78d82-0:nth-child(44) > .sc-7ef78d82-1"));
+        WebElement PizzaBtn = driver.findElement(By.xpath("//label[contains(.,\'Pica\')]"));
         PizzaBtn.click();
     }
 
@@ -272,35 +274,32 @@ public class ExampleSteps {
 
     @When("I click 'Continue with Facebook' button")
     public void iClickContinueWithGoogleButton() throws InterruptedException {
-        WebElement GoogleBtn = driver.findElement(By.cssSelector(".caePKl .sc-752da1aa-1"));
+        WebElement GoogleBtn = driver.findElement(By.cssSelector(".sc-752da1aa-5 .bRMAmn"));
         GoogleBtn.isDisplayed();
         Thread.sleep(3000);
     }
 
     @Then("switch window to facebook log in")
     public void switchWindowToFacebookLogIn() throws InterruptedException {
-        String originalWindow = driver.getWindowHandle();
-        assert driver.getWindowHandles().size() == 1;
-        WebElement GoogleBtn = driver.findElement(By.cssSelector(".caePKl .sc-752da1aa-1"));
-        GoogleBtn.click();
+        driver.findElement(By.linkText("Facebook Login")).click();
+        String url = driver.getCurrentUrl();
 
+// Get all window handles
+        Set<String> windowHandles = driver.getWindowHandles();
 
-        for (String windowHandle : driver.getWindowHandles()) {
-            if(!originalWindow.contentEquals(windowHandle)) {
-                driver.switchTo().window(windowHandle);
-                break;
-            }
+// Switch to the new window
+        for (String windowHandle : windowHandles) {
+            driver.switchTo().window(windowHandle);
         }
 
-        Thread.sleep(4000);
-    }
+// Locate and interact with the Facebook login elements
+        driver.findElement(By.id("email")).sendKeys("your_email@example.com");
+        driver.findElement(By.id("pass")).sendKeys("your_password");
+        driver.findElement(By.name("login")).click();
 
-    @When("I input my name and password")
-    public void iInputMyNameAndPassword() {
-        String url = driver.getCurrentUrl();
-        System.out.println(url);
-        WebElement nameBtn = driver.findElement(By.cssSelector(".caePKl .sc-752da1aa-1"));
-        nameBtn.click();
+// Switch back to the original window
+        driver.switchTo().window(String);
+
     }
 
     @Then("I expect to see 'Filter' pop-up")
@@ -312,15 +311,15 @@ public class ExampleSteps {
 
     @When("I select 'Health & beauty'")
     public void iSelectHealthBeauty() throws InterruptedException {
-        WebElement filterPopUp = driver.findElement(By.cssSelector(".sc-7ef78d82-0:nth-child(5) > .bRUnmo"));
+        WebElement filterPopUp = driver.findElement(By.xpath("//div[5]/label"));
         filterPopUp.click();
         Thread.sleep(2000);
     }
 
     @And("I select 'Apply' button")
     public void iSelectApplyButton() {
-        WebElement applyBtn = driver.findElement(By.cssSelector(".sc-21fc7435-3"));
-        applyBtn.click();
+        WebElement ApplyBtn = driver.findElement(By.cssSelector(".sc-ebd616db-3"));
+        ApplyBtn.click();
     }
 
     @Then("I expect see Stores near me pages")

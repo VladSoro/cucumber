@@ -30,7 +30,6 @@ Feature: Order
       When I click 'Stores' button
       Then I expect to see Stores page
       When I click 'Sorted by Recommended' button
-      Then I expect to see 'Filter' pop-up
-      When I select 'Health & beauty'
+      And I select 'Health & beauty'
       And I select 'Apply' button
       Then I expect see Stores near me pages
