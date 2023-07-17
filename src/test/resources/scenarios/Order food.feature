@@ -29,7 +29,7 @@ Feature: Order
   Scenario: Ordering a dish by type of stores
       When I click 'Stores' button
       Then I expect to see Stores page
-      When I click 'Sorted by Recommended' button
+      When I select 'Sorted by Recommended' button
       And I select 'Health & beauty'
       And I select 'Apply' button
       Then I expect see Stores near me pages

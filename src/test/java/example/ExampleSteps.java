@@ -8,12 +8,8 @@ import io.cucumber.java.en.When;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.time.Instant;
-import java.util.Set;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfWindowsToBe;
-import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
-import static org.testng.AssertJUnit.assertTrue;
+
 
 public class ExampleSteps {
 
@@ -274,32 +270,18 @@ public class ExampleSteps {
 
     @When("I click 'Continue with Facebook' button")
     public void iClickContinueWithGoogleButton() throws InterruptedException {
-        WebElement GoogleBtn = driver.findElement(By.cssSelector(".sc-752da1aa-5 .bRMAmn"));
+        WebElement GoogleBtn = driver.findElement(By.xpath("//button[3]/div[3]/div[2]"));
         GoogleBtn.isDisplayed();
         Thread.sleep(3000);
     }
 
     @Then("switch window to facebook log in")
     public void switchWindowToFacebookLogIn() throws InterruptedException {
-        driver.findElement(By.linkText("Facebook Login")).click();
+
+        driver.get("https://www.facebook.com/login.php?skip_api_login=1&api_key=289934484538965&kid_directed_site=0&app_id=289934484538965&signed_next=1&next=https%3A%2F%2Fwww.facebook.com%2Fv4.0%2Fdialog%2Foauth%3Fapp_id%3D289934484538965%26cbt%3D1687355005103%26channel_url%3Dhttps%253A%252F%252Fstaticxx.facebook.com%252Fx%252Fconnect%252Fxd_arbiter%252F%253Fversion%253D46%2523cb%253Df8d001b58336cc%2526domain%253Dwolt.com%2526is_canvas%253Dfalse%2526origin%253Dhttps%25253A%25252F%25252Fwolt.com%25252Fff5fe7b237c6f8%2526relation%253Dopener%26client_id%3D289934484538965%26display%3Dpopup%26domain%3Dwolt.com%26e2e%3D%257B%257D%26fallback_redirect_uri%3Dhttps%253A%252F%252Fwolt.com%252Fen%252Fdiscovery%26locale%3Den_US%26logger_id%3Df2941ae9cf6b6c%26origin%3D1%26redirect_uri%3Dhttps%253A%252F%252Fstaticxx.facebook.com%252Fx%252Fconnect%252Fxd_arbiter%252F%253Fversion%253D46%2523cb%253Df18f858f9e2e548%2526domain%253Dwolt.com%2526is_canvas%253Dfalse%2526origin%253Dhttps%25253A%25252F%25252Fwolt.com%25252Fff5fe7b237c6f8%2526relation%253Dopener%2526frame%253Df10ee96dea36ac8%26response_type%3Dtoken%252Csigned_request%252Cgraph_domain%26scope%3Demail%26sdk%3Djoey%26version%3Dv4.0%26ret%3Dlogin%26fbapp_pres%3D0%26tp%3Dunspecified&cancel_url=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Df18f858f9e2e548%26domain%3Dwolt.com%26is_canvas%3Dfalse%26origin%3Dhttps%253A%252F%252Fwolt.com%252Fff5fe7b237c6f8%26relation%3Dopener%26frame%3Df10ee96dea36ac8%26error%3Daccess_denied%26error_code%3D200%26error_description%3DPermissions%2Berror%26error_reason%3Duser_denied&display=popup&locale=ru_RU&pl_dbl=0");
+        Thread.sleep(3000);
         String url = driver.getCurrentUrl();
-
-// Get all window handles
-        Set<String> windowHandles = driver.getWindowHandles();
-
-// Switch to the new window
-        for (String windowHandle : windowHandles) {
-            driver.switchTo().window(windowHandle);
-        }
-
-// Locate and interact with the Facebook login elements
-        driver.findElement(By.id("email")).sendKeys("your_email@example.com");
-        driver.findElement(By.id("pass")).sendKeys("your_password");
-        driver.findElement(By.name("login")).click();
-
-// Switch back to the original window
-        driver.switchTo().window(String);
-
+        System.out.println(url);
     }
 
     @Then("I expect to see 'Filter' pop-up")
@@ -327,4 +309,53 @@ public class ExampleSteps {
         String url = driver.getCurrentUrl();
         System.out.println(url);
     }
+
+    @When("I select 'Sorted by Recommended' button")
+    public void iSelectSortedByRecommendedButton() {
+        WebElement RecommendedButton = driver.findElement(By.xpath("//div[2]/button/div[2]"));
+        RecommendedButton.isDisplayed();
+        RecommendedButton.click();
+    }
+
+    @When("I input login and password")
+    public void iInputLoginAndPassword() throws InterruptedException {
+        WebElement coolieBtn = driver.findElement(By.cssSelector("[data-cookiebanner='accept_only_essential_button']"));
+        coolieBtn.click();
+        Thread.sleep(2000);
+        driver.findElement(By.id("email")).sendKeys("375291340166");
+        driver.findElement(By.id("pass")).sendKeys("23111994dnepr");
+        driver.findElement(By.name("login")).click();
+        Thread.sleep(20000);
+        driver.close();
+    }
+
+    @Then("I expect to see logged in")
+    public void iExpectToSeeLoggedIn() throws InterruptedException {
+
+        Thread.sleep(3000);
+        String url = driver.getCurrentUrl();
+        System.out.println(url);
+    }
+
+    @When("I click 'Continue with email' button")
+    public void iClickContinueWithGoogleButton2() throws InterruptedException {
+        WebElement coolieBtn = driver.findElement(By.id("method-select-email"));
+        coolieBtn.click();
+        Thread.sleep(3000);
+    }
+
+    @Then("I input email")
+    public void iInputEmail() {
+        WebElement coolieBtn = driver.findElement(By.id("method-select-email"));
+        coolieBtn.sendKeys("sarachynskiuladzislau@gmail.com");
+    }
+
+    @When("I click next button")
+    public void iClickNextButton() throws InterruptedException {
+        driver.findElement(By.cssSelector(".sc-ebd616db-3")).click();
+        Thread.sleep(3000);
+
+    }
 }
+
+
